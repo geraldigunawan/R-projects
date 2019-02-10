@@ -6,7 +6,6 @@ reviews <- read.csv("reviews.csv", header = TRUE)
 listings_summary <- read.csv("listings-summary.csv", header = TRUE)
 reviews_summary <- read.csv("reviews-summary.csv", header = TRUE)
 
-#%%list column names
 colnames(calendar)
 colnames(listings)
 colnames(listings_summary)
