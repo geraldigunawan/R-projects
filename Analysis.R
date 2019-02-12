@@ -74,4 +74,4 @@ longlat
 str(longlat)
 any(is.na(longlat$latitude))
 
-rm(total_listing)
+rm(name)
