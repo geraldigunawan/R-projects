@@ -1,10 +1,10 @@
 library(ggplot2)
-calendar <- read.csv("calendar.csv", header = TRUE)
-listings <- read.csv("listings.csv", header = TRUE)
-neighbourhoods <- read.csv("neighbourhoods.csv", header = TRUE)
-reviews <- read.csv("reviews.csv", header = TRUE)
-listings_summary <- read.csv("listings-summary.csv", header = TRUE)
-reviews_summary <- read.csv("reviews-summary.csv", header = TRUE)
+calendar <- read.csv("Datasets/calendar.csv", header = TRUE)
+listings <- read.csv("Datasets/listings.csv", header = TRUE)
+neighbourhoods <- read.csv("Datasets/neighbourhoods.csv", header = TRUE)
+reviews <- read.csv("Datasets/reviews.csv", header = TRUE)
+listings_summary <- read.csv("Datasets/listings-summary.csv", header = TRUE)
+reviews_summary <- read.csv("Datasets/reviews-summary.csv", header = TRUE)
 
 #%%
 datasets <- c('calendar','listings','neighbourhoods', 'reviews','listing_summary','reviews_summary')
@@ -25,20 +25,21 @@ table(is.na(listings_summary$neighbourhood))
 str(listings_summary$number_of_reviews)
 
 #decsribe all unique content of a column
-df <- as.data.frame(table(listings_summary$neighbourhood)) 
+df <- as.data.frame(table(listings_summary$neighbourhood))
 # Rename a column in R
 colnames(df)
 colnames(df)[colnames(df)=="Var1"] <- "Neighbourhood"
-colnames(df)[colnames(df)=="Freq"] <- "Total"
+colnames(df)[colnames(df)=="Freq"] <- "TotalListing"
 df
-bargraph <- ggplot(df,aes(x=Neighbourhood,y=Total))+geom_bar(stat="identity")
+bargraph <- ggplot(df,aes(x=Neighbourhood,y=TotalListing))+geom_bar(stat="identity")
 bargraph + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 #save a picture to current working directory
-jpeg('Listings based on neighbourhood.jpg')
+jpeg('Diagrams/Listings based on neighbourhood.jpg')
 plot(bargraph + theme(axis.text.x = element_text(angle = 90, hjust = 1)))
 dev.off()
 
 #count
+unique(listings_summary$neighbourhood)
 length(unique(listings_summary$neighbourhood))
 
 #create a new data frame called my.data after filtering from dataset
@@ -63,4 +64,14 @@ subset(listings, id == 9835, select=c(host_id,host_name,host_since))
 
 #count number of rows per host_id (to check how may listings have been done)
 total_listing <- table(listings_summary$host_id)
+total_listing
 total_listing[total_listing > 30]
+
+longlat <- subset(listings_summary, longitude > 145, select=c(longitude,latitude))
+#longlat2 <- listings_summary[which(listings_summary$longitude | listings_summary$latitude),]
+longlat
+#longlat2
+str(longlat)
+any(is.na(longlat$latitude))
+
+rm(total_listing)
