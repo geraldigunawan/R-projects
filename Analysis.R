@@ -52,26 +52,3 @@ total_listing <- table(listings_summary$host_id)
 total_listing[total_listing > 30]
 
 subset(listings_summary, calculated_host_listings_count > 30, select=c(host_id,host_name))
-
-#create a vector
-name <- c("Mike", "Lucy", "John")
-age <- c(20, 25, 30)
-
-#create array/maxtrix
-x <- matrix(c(1,2,3,4,5,6,7,8), nrow=3, ncol=4)
-x
-x[-1,-2]
-x[-2,]
-
-#create a list
-y <- list(name="Mike", gender="M", company="ProgramCreek")
-y
-y$name
-y$gender
-
-#create a dataframe
-name <- c("Mike", "Lucy", "John")
-age <- c(20, 25, 30)
-student <- c(TRUE, FALSE, TRUE)
-df = data.frame(name,age,student)
-df
