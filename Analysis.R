@@ -18,6 +18,10 @@ colnames(listings_summary)
 #check null values in one particular column/vector
 any(is.na(listings_summary$number_of_reviews))
 
+table(listings_summary$neighbourhood)
+
+length(listings_summary$neighbourhood)
+
 #display how many NAs in one particular column
 table(is.na(listings_summary$neighbourhood))
 
@@ -26,17 +30,18 @@ str(listings_summary$number_of_reviews)
 
 #decsribe all unique content of a column
 df <- as.data.frame(table(listings_summary$neighbourhood))
+df
+
 # Rename a column in R
 colnames(df)
 colnames(df)[colnames(df)=="Var1"] <- "Neighbourhood"
 colnames(df)[colnames(df)=="Freq"] <- "TotalListing"
-df
 bargraph <- ggplot(df,aes(x=Neighbourhood,y=TotalListing))+geom_bar(stat="identity")
 bargraph + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 #save a picture to current working directory
 jpeg('Diagrams/Listings based on neighbourhood.jpg')
 plot(bargraph + theme(axis.text.x = element_text(angle = 90, hjust = 1)))
-dev.off()
+dev.off()s
 
 #count
 unique(listings_summary$neighbourhood)
@@ -60,12 +65,12 @@ head(listings_summary)
 tail(listings_summary)
 
 #select a particular record using certain condition
-subset(listings, id == 9835, select=c(host_id,host_name,host_since))
+subset(listings, id == 12936, select=c(host_id,host_name,host_since))
 
 #count number of rows per host_id (to check how may listings have been done)
 total_listing <- table(listings_summary$host_id)
 total_listing
-total_listing[total_listing > 30]
+total_listing[total_listing == 17]
 
 longlat <- subset(listings_summary, longitude > 145, select=c(longitude,latitude))
 #longlat2 <- listings_summary[which(listings_summary$longitude | listings_summary$latitude),]
@@ -74,7 +79,8 @@ longlat
 str(longlat)
 any(is.na(longlat$latitude))
 
-rm(name)
+#remove dataframe
+rm(listing_per_grade,Listing_per_grade)
 
 #Exercise 1: Get prices for all private room with minimum stay of 1 night
 onenight <- subset(listings_summary, minimum_nights ==1, select=c(room_type,price,minimum_nights))
